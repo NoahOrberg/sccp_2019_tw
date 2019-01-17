@@ -1,4 +1,12 @@
 CREATE TABLE users (
-    id INTEGER,
-    name VARCHAR(255),
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(255) UNIQUE,
+    password VARCHAR(255)
+);
+
+CREATE TABLE tweets (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    text VARCHAR(255),
+    user_id INTEGER,
+    published_at INTEGER
 );
