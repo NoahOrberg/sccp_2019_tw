@@ -10,7 +10,7 @@ c = conn.cursor();
 # this func's args are username and password
 def add_user(username, password):
     try:
-        # ENCRYPT Password
+        # ENCRYPT(HASH) Password
         encrypted_password = hashlib.sha256( \
                 password.encode('utf-8')).hexdigest()
         # Do
@@ -37,7 +37,9 @@ def get_user_by_name(name):
 # this func's args are user_id and text.
 def add_tweet(user_id, text):
     try:
+        # now is an INTEGER, it treat as UNIX Time.
         now = int(datetime.now().strftime('%s'), 10)
+        # Do
         c.execute('INSERT INTO tweets(text, user_id, published_at) VALUES (?, ?, ?)', \
                   (text, user_id, now))
         conn.commit()
@@ -50,6 +52,7 @@ def add_tweet(user_id, text):
 # returning value's format is ((id, text, user_id, published_at), ...)
 def get_all_tweets():
     try:
+        # Tweet's order should be in the newest order.
         c.execute('SELECT * FROM tweets ORDER BY published_at DESC')
         res = c.fetchall()
         return res
