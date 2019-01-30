@@ -3,7 +3,7 @@ import hashlib
 from datetime import datetime 
 
 dbname = 'twitter.db';
-conn = sqlite3.connect(dbname);
+conn = sqlite3.connect(dbname, check_same_thread=False);
 c = conn.cursor();
 
 # add_user add user into DB
